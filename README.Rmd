@@ -25,7 +25,6 @@ You can install the development version of bioread from GitHub:
 
 ``` r
 
-Right now, you would install this package from GitHub:
 # install.packages("devtools")
 devtools::install_github("uwmadison-chm/rbioread")
 
