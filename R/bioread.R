@@ -4,7 +4,7 @@
 #' Read a BIOPAC AcqKnowledge file
 #'
 #' @param file Path to an .acq file
-#' @param channel_indexes Specific channel indexes to load (NULL for all)
+#' @param channel_indexes Specific channel indexes to load data for (NULL loads all channels)
 #'
 #' @return A named list containing .acq data in R format with components:
 #' \describe{
@@ -31,8 +31,11 @@
 #'   \item{channel_number}{The channel number of the marker}
 #'   \item{channel_name}{The channel name of the marker}
 #'   \item{type}{The type of marker}
+#'   \item{color_rgba}{The color of the marker, as a 4-element vector of RGBA byte values}
 #'   \item{date_created}{The date and time the marker was created, in ISO 8601 format}
 #' }
+#' 
+#' Some marker components are NULL for some file versions.
 #'
 #' @examples
 #' acq_file = system.file("extdata", "physio-5.0.1-c.acq", package = "bioread")
@@ -96,6 +99,7 @@ format_marker <- function(pym) {
   rmark$channel_number <- pym$channel_number + 1 # Python is 0-based, R is 1-based
   rmark$channel_name <- pym$channel_name
   rmark$type <- pym$type
+  rmark$color_rgba <- pym$color
   rmark$date_created <- pym$date_created_str
   return(rmark)
 }

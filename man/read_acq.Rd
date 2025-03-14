@@ -9,7 +9,7 @@ read_acq(file, channel_indexes = NULL)
 \arguments{
 \item{file}{Path to an .acq file}
 
-\item{channel_indexes}{Specific channel indexes to load (NULL for all)}
+\item{channel_indexes}{Specific channel indexes to load data for (NULL loads all channels)}
 }
 \value{
 A named list containing .acq data in R format with components:
@@ -40,8 +40,11 @@ The \code{markers} component is a list of markers, each containing:
 \item{channel_number}{The channel number of the marker}
 \item{channel_name}{The channel name of the marker}
 \item{type}{The type of marker}
+\item{color_rgba}{The color of the marker, as a 4-element vector of RGBA byte values}
 \item{date_created}{The date and time the marker was created, in ISO 8601 format}
 }
+
+Some marker components are NULL for some file versions.
 }
 \examples{
 acq_file = system.file("extdata", "physio-5.0.1-c.acq", package = "bioread")
