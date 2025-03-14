@@ -1,6 +1,6 @@
 Package: bioread
 Title: R/reticulate Interface to BIOPAC AcqKnowledge Files
-Version: 2025.03.14.dev
+Version: 2025-03-14.01
 Authors@R: 
     person("Nate", "Vack", email = "njvack@wisc.edu", role = c("aut", "cre"))
 Description: Provides direct access to BIOPAC AcqKnowledge (.acq) files from R.
@@ -9,3 +9,11 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Imports: 
+    reticulate (>= 1.41)
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+Config/testthat/edition: 3
+VignetteBuilder: knitr
