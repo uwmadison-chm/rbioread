@@ -12,7 +12,8 @@ read_acq(file, channel_indexes = NULL)
 \item{channel_indexes}{Specific channel indexes to load data for (NULL loads all channels)}
 }
 \value{
-A named list containing .acq data in R format with components:
+A named list containing .acq data in R format, or
+NULL if the python bioread isn't available. The list contains:
 \describe{
 \item{channels}{A list of channel data and metadata}
 \item{markers}{A list of markers}
@@ -47,14 +48,16 @@ The \code{markers} component is a list of markers, each containing:
 Some marker components are NULL for some file versions.
 }
 \examples{
-acq_file = system.file("extdata", "physio-5.0.1-c.acq", package = "bioread")
+library(bioread)
+acq_file <- system.file("extdata", "physio-5.0.1-c.acq", package = "bioread")
 acq_data <- read_acq(acq_file)
 
-channel <- acq_data$channels[[1]]
+if (!is.null(acq_data)) {
+  channel <- acq_data$channels[[1]]
 
-# Plot the first channel
-plot(
-    channel$time, channel$data, type = "l", xlab="Time (s)",
+  # Plot the first channel
+  plot(
+    channel$time, channel$data, type = "l", xlab = "Time (s)",
     ylab = channel$units, main = channel$name)
-
+}
 }

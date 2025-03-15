@@ -1,3 +1,5 @@
 .onLoad <- function(libname, pkgname) {
-  reticulate::py_require("bioread")
+  if (requireNamespace("reticulate", quietly = TRUE)) {
+    reticulate::py_require("bioread")
+  }
 }

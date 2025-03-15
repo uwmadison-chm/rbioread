@@ -4,6 +4,8 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^\.Rprofile$
+^\.lintr$
 ^README\.Rmd$
 ^cran-comments\.md$
 ^revdep$
+^CRAN-SUBMISSION$
