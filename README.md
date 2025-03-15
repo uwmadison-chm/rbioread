@@ -20,13 +20,13 @@ devtools::install_github("uwmadison-chm/rbioread")
 #> Downloading GitHub repo uwmadison-chm/rbioread@HEAD
 #> 
 #> ── R CMD build ─────────────────────────────────────────────────────────────────
-#> * checking for file ‘/private/var/folders/pr/vfv_wh0x7_n25fgb9zjf1bw80000gn/T/Rtmpwj0YHm/remotesf6557afa6856/uwmadison-chm-rbioread-0c14301/DESCRIPTION’ ... OK
+#> * checking for file ‘/private/var/folders/pr/vfv_wh0x7_n25fgb9zjf1bw80000gn/T/RtmpcQcgku/remotes125c85fd2f1c9/uwmadison-chm-rbioread-1255fee/DESCRIPTION’ ... OK
 #> * preparing ‘bioread’:
 #> * checking DESCRIPTION meta-information ... OK
 #> * checking for LF line-endings in source and make files and shell scripts
 #> * checking for empty or unneeded directories
 #> * building ‘bioread_1.0.0.tar.gz’
-#> Installing package into '/private/var/folders/pr/vfv_wh0x7_n25fgb9zjf1bw80000gn/T/Rtmpxn13Y6/temp_libpath13e2b3d83efb'
+#> Installing package into '/private/var/folders/pr/vfv_wh0x7_n25fgb9zjf1bw80000gn/T/Rtmp1WK3LL/temp_libpath11d377824bcdb'
 #> (as 'lib' is unspecified)
 library(bioread)
 
@@ -40,7 +40,33 @@ reticulate::py_module_available("bioread")
 To load an .acq file and plot the first channel with nice names and
 labels:
 
-<img src="man/figures/README-example-1.png" width="100%" />
+``` r
+
+acq_file <- system.file("extdata", "physio-5.0.1-c.acq", package = "bioread")
+acq_data <- bioread::read_acq(acq_file)
+
+for (i in 1:length(acq_data$channels)) {
+  cat("Channel ", i, ": ", acq_data$channel[[i]]$name, "\n")
+}
+#> Channel  1 :  EDA filtered, differentiated 
+#> Channel  2 :  EKG - ERS100C 
+#> Channel  3 :  RESP - RSP100C 
+#> Channel  4 :  EDA - GSR100C
+```
+
+Let’s plot respiration, which is in channel 3:
+
+``` r
+
+channel <- acq_data$channels[[3]]
+
+# Plot the first channel
+plot(
+   channel$time, channel$data, type = "l", xlab = "Time (s)",
+   ylab = channel$units, main = channel$name)
+```
+
+<img src="man/figures/README-plot_resp-1.png" width="100%" />
 
 ## Advanced usage
 

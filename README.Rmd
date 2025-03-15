@@ -38,12 +38,21 @@ reticulate::py_module_available("bioread")
 
 To load an .acq file and plot the first channel with nice names and labels:
 
-```{r example, echo = FALSE}
+```{r list_channels}
 
 acq_file <- system.file("extdata", "physio-5.0.1-c.acq", package = "bioread")
 acq_data <- bioread::read_acq(acq_file)
 
-channel <- acq_data$channels[[1]]
+for (i in 1:length(acq_data$channels)) {
+  cat("Channel ", i, ": ", acq_data$channel[[i]]$name, "\n")
+}
+```
+
+Let's plot respiration, which is in channel 3:
+
+```{r plot_resp}
+
+channel <- acq_data$channels[[3]]
 
 # Plot the first channel
 plot(
